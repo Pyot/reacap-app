@@ -184,39 +184,13 @@
             }
             
             console.log('ISODateString(convertDateStart)', ISODateString(convertDateStart))
-
-            var event = {
-                'summary': whatYouLearn,
-                'location': '800 Howard St., San Francisco, CA 94103',
-                'description': notes,
-                "start": {
-                    "dateTime": convertDateStart.toISOString(),
-                    "timeZone": "Europe/Zurich"
-                },
-                "end": {
-                    "dateTime": convertDateEnd.toISOString(),
-                    "timeZone": "Europe/Zurich"
-                },
+            
 
 
+            recapDayBreak.map(dayBreak => {
 
-                'reminders': {
-                    'useDefault': false,
-                    'overrides': [
-                        { 'method': 'email', 'minutes': 20 },
-                        { 'method': 'popup', 'minutes': 10 }
-                    ]
-                }
-            };
-
-            var request = gapi.client.calendar.events.insert({
-                'calendarId': 'primary',
-                'resource': event
-            });
-
-            request.execute(function (event) {
-                appendPre('Event created: ' + event.htmlLink);
-            });
+            })
+            
 
         }
 
