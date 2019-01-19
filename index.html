@@ -4,7 +4,7 @@
 <head>
     <title>Google Calendar API Quickstart</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"/>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
         crossorigin="anonymous"></script>
     <script src="semantic/dist/semantic.min.js"></script>
@@ -26,12 +26,18 @@
                 <form class="ui form">
                     <div class="field">
                         <label>Start Time</label>
-                        <div class="two fields">
+                        <div class="three fields">
                             <div class="four wide field">
                                 <input id="start_date" type="date">
                             </div>
                             <div class="four wide field">
                                 <input id="start_time" type="time">
+                            </div>
+                            <div class="four wide field">
+                                    <button id="get_current_date" class="ui labeled icon button orange">
+                                            <i class="clock outline icon"></i>
+                                            Get Current Time
+                                    </button>
                             </div>
                         </div>
                         <div class="fields">
@@ -46,9 +52,12 @@
                                 <textarea placeholder="Feel free to add some notes and links" rows="2" style="resize:;min-height:100px"></textarea>
                             </div>
                         </div>
+                    </div>
                 </form>
-                <button id="new_recap" class="ui button" style="display: none;">New Recap</button>
-
+                <button id="new_recap" class="ui labeled icon button green" style="display: none;">
+                    <i class="save icon"></i>
+                    Add Recap
+                </button>
             </div>
         </div>
         <div class="column">
@@ -85,6 +94,7 @@
         var authorizeButton = document.getElementById('authorize_button');
         var signoutButton = document.getElementById('signout_button');
         var newRecapButton = document.getElementById('new_recap');
+        let getCurrentTimeButton =  document.getElementById('get_current_date');
         /**
          *  On load, called to load the auth2 library and API client library.
          */
@@ -113,6 +123,8 @@
                 authorizeButton.onclick = handleAuthClick;
                 signoutButton.onclick = handleSignoutClick;
                 newRecapButton.onclick = newRecap;
+                getCurrentTimeButton.onclick = currentDate;
+
 
             }, function (error) {
                 appendPre(JSON.stringify(error, null, 2));
@@ -214,6 +226,10 @@
             document.getElementById('start_time').value = time;
             document.getElementById('start_date').value = date;
             console.log('date', date);
+        }
+
+        function amountRecap() {
+
         }
 
         function newRecap() {
