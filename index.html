@@ -51,7 +51,9 @@
                     </div>
                 </form>
                 <button id="new_recap" class="ui button" style="display: none;">New Recap</button>
-
+                <button id="getCalendar" class="ui button" style="display: none;">New Recap</button>
+                
+                /users/me/calendarList/calendarId
             </div>
         </div>
         <div class="column">
@@ -112,9 +114,12 @@
 
                 // Handle the initial sign-in state.
                 updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+                currentDate();
+
                 authorizeButton.onclick = handleAuthClick;
                 signoutButton.onclick = handleSignoutClick;
                 newRecapButton.onclick = newRecap;
+
             }, function (error) {
                 appendPre(JSON.stringify(error, null, 2));
             });
@@ -208,35 +213,31 @@
             });
         }
 
+        function currentDate() {
+            let currentDate = new Date();
+            let find = '/';
+            let re = new RegExp(find, 'g');
+            let time = currentDate.toTimeString().substr(0,5);
+            let date = currentDate.getFullYear() + '-' + currentDate.getMonth() + 1 + '-' + currentDate.getDate();
+            document.getElementById('start_time').value = time;
+            document.getElementById('start_date').value = date;
+            console.log('date', date);
+        }
 
         function newRecap() {
             let whatYouLearn = document.getElementById('what_you_learn').value;
-            console.log('whatYouLearn', whatYouLearn);
             let startDate = document.getElementById('start_date').value;
-            console.log('startDate', startDate);
             let startTime = document.getElementById('start_time').value;
-            console.log('startTime', startTime)
             let notes = document.getElementById('notes').value;
-            console.log('notes', notes);
             let emailConfirmation = document.getElementById('email_confirmation').value;
-            console.log('emailConfirmation', emailConfirmation);
-
             let startDateTime = startDate + 'T' + startTime + '+01:00';
-            console.log('startDateTime:', startDateTime)
-            //END HERE 
             let extraHour = startTime;
 
-            let myTime = new Date();
-            console.log(myTime.getTimezoneOffset())
 
             let convertDateStart = new Date(startDateTime);
-            console.log('convertDateStart:', convertDateStart)
             let convertDateEnd = convertDateStart;
-            // console.log('convertDateEnd:', convertDateEnd.toISOString());
             converDateEnd = convertDateEnd.setMinutes(convertDateEnd.getMinutes() + 15);
-            console.log('convertDateEnd:', convertDateEnd.toISOString());
 
-            // let recapDayBreak = [1, 7, 28, 112]
             let recapDayBreak = [[1, 'I'], [7, 'II'], [28, 'III'], [112, 'IV']];
 
 
@@ -258,9 +259,6 @@
                         "dateTime": convertDateEnd.toISOString(),
                         "timeZone": "Europe/Warsaw"
                     },
-
-
-
                     'reminders': {
                         'useDefault': false,
                         'overrides': [
