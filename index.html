@@ -49,7 +49,7 @@
                         <div class="fields">
                             <div class="eight wide field">
                                 <label for="">Notes</label>
-                                <textarea placeholder="Feel free to add some notes and links" rows="2" style="resize:;min-height:100px"></textarea>
+                                <textarea id="notes" placeholder="Feel free to add some notes and links" rows="2" style="resize:;min-height:100px"></textarea>
                             </div>
                         </div>
                     </div>
@@ -237,7 +237,6 @@
             let startDate = document.getElementById('start_date').value;
             let startTime = document.getElementById('start_time').value;
             let notes = document.getElementById('notes').value;
-            let emailConfirmation = document.getElementById('email_confirmation').value;
             let startDateTime = startDate + 'T' + startTime + '+01:00';
             let extraHour = startTime;
 
